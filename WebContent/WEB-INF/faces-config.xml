@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+ <managed-bean>
+  <managed-bean-name>userInformation</managed-bean-name>
+  <managed-bean-class>user.details.UserInformation</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>friendInformation</managed-bean-name>
+  <managed-bean-class>user.details.FriendInformation</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>userBasedBoolRecommendArtist</managed-bean-name>
+  <managed-bean-class>recommendation.artist.UserBasedBoolRecommendArtist</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>itemBasedBoolRecommendArtist</managed-bean-name>
+  <managed-bean-class>recommendation.artist.ItemBasedBoolRecommendArtist</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>moodProcessor</managed-bean-name>
+  <managed-bean-class>user.details.MoodProcessor</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>recommendSong</managed-bean-name>
+  <managed-bean-class>recommendation.artist.RecommendSong</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+ </managed-bean>
+</faces-config>

@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Music Information</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap-responsive.css"/>
+<script type="text/javascript" src="${pageContext.request.contextPath}/CSS/bootstrap.js"></script>
+</h:head>
+
+<body>
+<h:form id="musicForm">
+<f:view>
+	<h:outputText value="You like" styleClass="text-info"></h:outputText>
+	<!-- using jsp core tag library for iterating over the list
+<table>
+		<c:forEach items="#{userInformation.musicList}" var="musicList">
+			<tr>
+					<h:graphicImage value="#{musicList.picture}"></h:graphicImage>
+					<h:outputText value=" #{musicList.name}"></h:outputText>
+			</tr>
+		</c:forEach>
+</table> -->
+
+<p:dataGrid var="musicList" value="#{userInformation.musicList}" columns="8" rows="1" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="9,12,15">
+	<p:panel style="text-align:center">
+		<p:graphicImage value="#{musicList.picture}"></p:graphicImage>
+		<br/>
+		<h:outputText value=" #{musicList.name}"></h:outputText>
+	</p:panel>
+</p:dataGrid>
+	<br/>
+	<br/>
+	<br/>
+<table>
+	<c:forEach items="#{friendInformation.friendName}" var="friendList" varStatus="status">
+		<c:set var="count" value="${status.index}"></c:set>
+		<h:outputText value="Your friend #{friendInformation.friendName[count]} likes"></h:outputText>
+		<br/>
+			<!-- <c:forEach var="friendMusicList" items="#{friendInformation.friendMusicList[count]}">
+				<h:outputText value="#{friendMusicList.name}"></h:outputText>>
+				<img src="${friendMusicList.picture }"></img>
+			</c:forEach>  -->
+			<p:dataGrid var="friendMusicList" value="#{friendInformation.friendMusicList[count]}" columns="8" rows="1" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="9,12,15">
+				<p:panel style="text-align:center">
+					<p:graphicImage value="#{friendMusicList.picture}"></p:graphicImage>
+					<br/>
+					<h:outputText value=" #{friendMusicList.name}"></h:outputText>
+				</p:panel>
+			</p:dataGrid>
+		<br/>
+		<br/>
+		<h:outputText value="Your friend #{friendInformation.friendName[count]} listens to"></h:outputText>
+		<br/>
+			<!-- <c:forEach var="friendDataMusicList" items="#{friendInformation.friendDataList[count]}">
+				<h:outputText value="#{friendDataMusicList.musicdata.song.title}"></h:outputText>
+				<br/>
+			</c:forEach> -->
+			 <p:dataGrid var="friendDataMusicList" value="#{friendInformation.friendDataList[count]}" columns="8" rows="1" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="9,12,15">
+				<p:panel style="text-align:center">
+					<h:outputText value=" #{friendDataMusicList.musicdata.song.title}"></h:outputText>
+				</p:panel>
+			</p:dataGrid> 
+		<br/>
+	</c:forEach>
+	<br/>
+	<h2>Recommendations for you</h2>
+	<h:outputText value="Because of your listening habits"></h:outputText>
+	<p:dataGrid var="recommendedArtist" value="#{userBasedBoolRecommendArtist.userBasedArtistList}" columns="8" rows="1" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="9,12,15">
+				<p:panel style="text-align:center">
+					<h:outputText value=" #{recommendedArtist}"></h:outputText>
+					<br/>
+					<p:commandLink value="View Songs">
+						<f:setPropertyActionListener target="#{recommendSong.artistName}"  value="#{recommendedArtist}">
+							
+						</f:setPropertyActionListener>
+					</p:commandLink>
+				</p:panel>
+	</p:dataGrid>
+	<br/>
+	<h:outputText value="Because of your likes"></h:outputText>
+	<p:dataGrid var="recommendedItemArtist" value="#{itemBasedBoolRecommendArtist.itemBasedArtistList}" columns="8" rows="1" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="9,12,15">
+				<p:panel style="text-align:center">
+					<h:outputText value=" #{recommendedItemArtist}"></h:outputText>
+					<br/>
+				<p:commandLink value="View Songs">
+						<f:setPropertyActionListener target="#{recommendSong.artistName}" value="#{recommendedItemArtist}"></f:setPropertyActionListener>
+				</p:commandLink>
+				</p:panel>
+				
+	</p:dataGrid>
+	<br/>
+	<h:outputText value="Because of your mood"></h:outputText>
+	<p:dataGrid var="moodList" value="#{moodProcessor.moodArtistList}" columns="8" rows="1" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="9,12,15">
+				<p:panel style="text-align:center">
+					<h:outputText value=" #{moodList}"></h:outputText>
+					<br/>
+				<p:commandLink value="View Songs">
+						<f:setPropertyActionListener target="#{recommendSong.artistName}" value="#{moodList}"></f:setPropertyActionListener>
+				</p:commandLink>
+				</p:panel>
+				
+	</p:dataGrid>
+</table>
+
+<p:dialog header="Songs for selected artist" widgetVar="songData" modal="true">
+	<p:outputPanel id="songDetail">
+		<h:dataTable value="#{userBasedBoolRecommendArtist.selectedArtist.songURLList}" var="songList">
+		<h:column>
+			<h:outputText value="#{songList}"></h:outputText>
+		</h:column>
+		</h:dataTable>
+	</p:outputPanel>
+</p:dialog>
+</f:view>
+</h:form>
+</body>
+</html>
